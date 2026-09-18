@@ -14,6 +14,7 @@ public class MainMenu {
 
     private final Scanner sc = new Scanner(System.in);
 
+    // Displays the main menu
     public void execute() {
         System.out.println("Welcome to the main menu!");
 
@@ -50,6 +51,7 @@ public class MainMenu {
         }
     }
 
+    // Creates a board and its columns
     private void createdBoard() {
         System.out.println("Enter board name: ");
         String name = sc.next();
@@ -63,11 +65,13 @@ public class MainMenu {
 
         List<BoardColumnEntity> columns = new ArrayList<>();
 
+        // Creates the initial column
         System.out.println("First column name: ");
         var firstColumnName = sc.next();
         var firstColumn = createColumn(firstColumnName, KindEnum.INITIAL, 0);
         columns.add(firstColumn);
 
+        // Creates the pending columns
         for (int i = 0; i < addColumn; i++) {
             System.out.println("Pending column name: ");
             var pendingColumnName = sc.next();
@@ -75,36 +79,40 @@ public class MainMenu {
             columns.add(pendingColumn);
         }
 
+        // Creates the final column
         System.out.println("Last column name: ");
         var lastColumnName = sc.next();
         var lastColumn = createColumn(lastColumnName, KindEnum.FINAL, addColumn + 1);
         columns.add(lastColumn);
 
-        System.out.println("Cancelled column name: ");
+        // Creates the canceled column
+        System.out.println("Canceled column name: ");
         var cancelColumnName = sc.next();
         var cancelColumn = createColumn(cancelColumnName, KindEnum.CANCELLED, addColumn + 2);
         columns.add(cancelColumn);
 
         board.setColumns(columns);
 
+        // Saves the board and columns
         try (var connection = getConnection()) {
-            var service = new BoardService(connection);
-            service.insert(board);
+            var boardService = new BoardService(connection);
+            boardService.insert(board);
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
+    // Finds a board and opens its menu
     private void selectBoard() {
         System.out.println("Enter board id: ");
         long id = sc.nextLong();
 
         try (var connection = getConnection()) {
-            var service = new BoardService(connection);
-            service.findById(id);
+            var boardService = new BoardService(connection);
+            boardService.findById(id);
 
-            if (service.findById(id).isPresent()) {
-                var menu = new BoardMenu(service.findById(id).get());
+            if (boardService.findById(id).isPresent()) {
+                var menu = new BoardMenu(boardService.findById(id).get());
                 menu.execute();
             } else {
                 System.out.println("There is no such board.");
@@ -115,13 +123,14 @@ public class MainMenu {
         }
     }
 
+    // Deletes the board
     private void deleteBoard() {
         System.out.println("Enter board id: ");
         long id = sc.nextLong();
 
         try (var connection = getConnection()) {
-            var service = new BoardService(connection);
-            service.delete(id);
+            var boardService = new BoardService(connection);
+            boardService.delete(id);
             System.out.println(id + " has been deleted.");
 
         } catch (SQLException e) {
@@ -129,6 +138,7 @@ public class MainMenu {
         }
     }
 
+    // Creates a column and assigns its basic information
     private BoardColumnEntity createColumn(final String name, final KindEnum kind, final int order) {
         var boardColumn = new BoardColumnEntity();
         boardColumn.setName(name);

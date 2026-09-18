@@ -8,10 +8,11 @@ import static Board.Project.Persistence.Config.ConnectionConfig.getConnection;
 public class Main {
     public static void main(String[] args) throws  SQLException {
 
+        // Runs the database migrations
         try (var connection = getConnection()) {
             new MigrationStrategy(connection).executeMigration();
         }
-
+        // Starts the application menu
         new MainMenu().execute();
     }
 }

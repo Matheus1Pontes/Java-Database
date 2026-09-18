@@ -15,6 +15,7 @@ public class BlockService {
 
     private final Connection connection;
 
+    // inserts the block
     public BlockEntity insert(final BlockEntity entity) throws SQLException {
 
         var blockDAO = new BlockDAO(connection);
@@ -30,6 +31,7 @@ public class BlockService {
         }
     }
 
+    // Updates the block
     public BlockEntity update(final BlockEntity entity) throws SQLException {
 
         var blockDAO = new BlockDAO(connection);
@@ -45,6 +47,7 @@ public class BlockService {
         }
     }
 
+    // Returns all blocks
     public List<BlockEntity> findAll() throws SQLException {
 
         var blockDAO = new BlockDAO(connection);
@@ -52,6 +55,7 @@ public class BlockService {
 
     }
 
+    // Find a block by its ID
     public Optional<BlockEntity> findById(final long id) throws SQLException {
 
         var blockDAO = new BlockDAO(connection);
@@ -65,6 +69,7 @@ public class BlockService {
         return Optional.empty();
     }
 
+    // Returns all blocks for a card
     public List<BlockEntity> findByCardId(final long card_id) throws SQLException {
 
         var blockDAO = new BlockDAO(connection);
@@ -78,6 +83,7 @@ public class BlockService {
         return Collections.emptyList();
     }
 
+    // Deletes the block
     public void delete(final long id) throws SQLException {
 
         var blockDAO = new BlockDAO(connection);
@@ -92,6 +98,7 @@ public class BlockService {
         }
     }
 
+    // Marks an active block as resolved
     public void unblock(long cardId, String cause) throws SQLException {
 
         var blockDAO = new BlockDAO(connection);
@@ -106,6 +113,7 @@ public class BlockService {
         }
     }
 
+    // Checks whether a card currently has an active block
     public boolean isBlocked(long cardId) throws SQLException {
         var blockDAO = new BlockDAO(connection);
         try {

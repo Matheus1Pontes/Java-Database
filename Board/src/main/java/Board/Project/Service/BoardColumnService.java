@@ -14,6 +14,7 @@ public class BoardColumnService {
 
     private final Connection connection;
 
+    // Inserts the board column
     public BoardColumnEntity insert(final BoardColumnEntity entity) throws SQLException {
 
         var boardColumnDAO = new BoardColumnDAO(connection);
@@ -29,6 +30,7 @@ public class BoardColumnService {
         }
     }
 
+    // Updates the board column
     public BoardColumnEntity update(final BoardColumnEntity entity) throws SQLException {
 
         var boardColumnDAO = new BoardColumnDAO(connection);
@@ -44,6 +46,7 @@ public class BoardColumnService {
         }
     }
 
+    // Returns all board columns
     public List<BoardColumnEntity> findAll() throws SQLException {
 
         var boardColumnDAO = new BoardColumnDAO(connection);
@@ -52,6 +55,7 @@ public class BoardColumnService {
 
     }
 
+    // Finds the column by its ID
     public Optional<BoardColumnEntity> findById(final long id) throws SQLException {
 
         var boardColumnDAO = new BoardColumnDAO(connection);
@@ -65,6 +69,7 @@ public class BoardColumnService {
         return Optional.empty();
     }
 
+    // Returns all columns belonging to the board
     public List<BoardColumnEntity> findByBoardId(final long board_id) throws SQLException {
 
         var boardColumnDAO = new BoardColumnDAO(connection);
@@ -78,6 +83,7 @@ public class BoardColumnService {
         return Collections.emptyList();
     }
 
+    // Deletes the board column
     public void delete(final long id) throws SQLException {
 
         var boardColumnDAO = new BoardColumnDAO(connection);

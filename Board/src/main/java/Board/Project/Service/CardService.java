@@ -15,6 +15,7 @@ public class CardService {
 
     private final Connection connection;
 
+    // Inserts the card
     public CardEntity insert(final CardEntity entity) throws SQLException {
 
         var cardDAO = new CardDAO(connection);
@@ -29,7 +30,7 @@ public class CardService {
             throw e;
         }
     }
-
+    // Updates the card
     public CardEntity update(final CardEntity entity) throws SQLException {
 
         var cardDAO = new CardDAO(connection);
@@ -45,12 +46,14 @@ public class CardService {
         }
     }
 
+    // Returns all cards
     public List<CardEntity> findAll() throws SQLException {
 
         var cardDAO = new CardDAO(connection);
         return cardDAO.findAll();
     }
 
+    // Finds the card and load its board column
     public Optional<CardEntity> findById(final long id) throws SQLException {
 
         var cardDAO = new CardDAO(connection);
@@ -61,6 +64,7 @@ public class CardService {
         if (card.isPresent()) {
             var cardEntity = card.get();
 
+            // Find the complete board column information
             var column = boardColumnDAO.findById(cardEntity.getBoardColumn().getId());
 
             if (column.isPresent()) {
@@ -70,6 +74,7 @@ public class CardService {
         return card;
     }
 
+    // Returns all cards in a specific column
     public List<CardEntity> findByBoardColumnId(final long board_column_id) throws SQLException {
 
         var cardDAO = new CardDAO(connection);
@@ -83,6 +88,7 @@ public class CardService {
         return Collections.emptyList();
     }
 
+    // Deletes the card
     public void delete(final long id) throws SQLException {
 
         var cardDAO = new CardDAO(connection);
