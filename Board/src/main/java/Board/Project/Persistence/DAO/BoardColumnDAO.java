@@ -18,6 +18,7 @@ public class BoardColumnDAO {
     // Inserts a new board column into the database
     public BoardColumnEntity insert(final BoardColumnEntity entity) throws SQLException {
         // `order` is escaped because ORDER is an SQL keyword
+        // Will add new name, kind, order and board ID to the board column table
         var sql = "INSERT INTO BOARD_COLUMNS (name, kind, `order`, board_id) " +
                   "VALUES (?, ?, ?, ?)";
 
@@ -45,6 +46,7 @@ public class BoardColumnDAO {
     // Updates a column's name, kind, and order
     public BoardColumnEntity update(final BoardColumnEntity entity) throws SQLException {
 
+        // Will update name, kind and order based on board column ID
         var sql = "UPDATE BOARD_COLUMNS " +
                   "SET name = ?, kind = ?, `order` = ? " +
                   "WHERE id = ?";
@@ -63,6 +65,7 @@ public class BoardColumnDAO {
     // Deletes a board column using its ID
     public void delete(final long id) throws SQLException {
 
+        // Will cascade delete based on board column ID
         var sql = "DELETE FROM BOARD_COLUMNS " +
                   "WHERE id = ?";
 
@@ -75,6 +78,7 @@ public class BoardColumnDAO {
     // Retrieves every board column from the database
     public List<BoardColumnEntity> findAll() throws SQLException {
 
+        // Will select everything from the board column table
         var sql = "SELECT * " +
                   "FROM BOARD_COLUMNS";
 
@@ -106,6 +110,7 @@ public class BoardColumnDAO {
     // Finds one board column by its ID
     public Optional<BoardColumnEntity> findById(final long id) throws SQLException {
 
+        // will display id, name, kind, order and board id based on the board column ID
         var sql = "SELECT id, name, kind, `order`, board_id " +
                   "FROM BOARD_COLUMNS " +
                   "WHERE id = ?";
@@ -140,6 +145,7 @@ public class BoardColumnDAO {
     // Finds all columns belonging to one specific board
     public List<BoardColumnEntity> findByBoardId(final long board_id) throws SQLException {
 
+        // Will display everything based on the board ID
         var sql = "SELECT * " +
                   "FROM BOARD_COLUMNS " +
                   "WHERE board_id = ?";
@@ -175,6 +181,7 @@ public class BoardColumnDAO {
     // Checks whether a column exists with the given ID
     public boolean exists(final long id) throws SQLException {
 
+        // Will return 1 for a matching row
         var sql = "SELECT 1 " +
                   "FROM BOARD_COLUMNS " +
                   "WHERE id = ?";

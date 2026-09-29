@@ -9,6 +9,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+/*
+resultSet is used to determine where the SQL command ends, it will return false the end is reached
+ */
+
+
 @AllArgsConstructor
 public class BoardDAO {
 
@@ -18,6 +23,7 @@ public class BoardDAO {
     // Inserts a new board into the BOARDS table
     public BoardEntity insert(final BoardEntity entity) throws SQLException {
 
+        // Will change name to whatever the user determines
         var sql = "INSERT INTO BOARDS (name) " +
                   "VALUES (?)";
 
@@ -39,6 +45,7 @@ public class BoardDAO {
     // Updates an existing board's name
     public BoardEntity update(final BoardEntity entity) throws SQLException {
 
+        // Will update the name based on the given ID
         var sql = "UPDATE BOARDS " +
                   "SET name = ? " +
                   "WHERE id = ?";
@@ -57,6 +64,7 @@ public class BoardDAO {
     // Deletes a board using its ID
     public void delete(final long id) throws SQLException {
 
+        // Will cascade delete based on the board ID
         var sql = "DELETE FROM BOARDS " +
                   "WHERE id = ?";
 
@@ -69,6 +77,7 @@ public class BoardDAO {
     // Retrieves every board from the BOARDS table
     public List<BoardEntity> findAll() throws SQLException {
 
+        // Shows everything in board table
         var sql = "SELECT * " +
                   "FROM BOARDS";
 
@@ -94,6 +103,7 @@ public class BoardDAO {
     // Optional is empty when no board is found
     public Optional<BoardEntity> findById(final long id) throws SQLException {
 
+        // Displays id and name based on board ID
         var sql = "SELECT id, name " +
                   "FROM BOARDS " +
                   "WHERE id = ?";
@@ -121,6 +131,7 @@ public class BoardDAO {
     // Checks whether a board exists with the given ID
     public boolean exists(final long id) throws SQLException {
 
+        // Will return 1 for a matching row
         var sql = "SELECT 1 " +
                   "FROM BOARDS " +
                   "WHERE id = ?";

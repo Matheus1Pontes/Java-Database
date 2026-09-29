@@ -23,6 +23,7 @@ public class BlockDAO {
     // Inserts a new block
     public BlockEntity insert(final BlockEntity entity) throws SQLException {
 
+        // Will add new blockedCause, blockedAt, unblockedCause, unblockedAt and already existing card ID
         var sql = "INSERT INTO BLOCKS (blockedCause, blockedAt, unblockedCause, unblockedAt, card_id) " +
                   "VALUES (?, ?, ?, ?, ?)";
 
@@ -67,6 +68,7 @@ public class BlockDAO {
     // Updates an existing block record
     public BlockEntity update(final BlockEntity entity) throws SQLException {
 
+        // Will update blockedCause, blockedAt, unblockedCause and unblockedAt based on block ID
         var sql = "UPDATE BLOCKS " +
                   "SET blockedCause = ?, blockedAt = ?, unblockedCause = ?, unblockedAt = ? " +
                   "WHERE id = ?";
@@ -93,6 +95,7 @@ public class BlockDAO {
     // Deletes a block record by its ID
     public void delete(final long id) throws SQLException {
 
+        // Will cascade delete based on block ID
         var sql = "DELETE FROM BLOCKS " +
                   "WHERE id = ?";
 
@@ -105,6 +108,7 @@ public class BlockDAO {
     // Retrieves every block record
     public List<BlockEntity> findAll() throws SQLException {
 
+        // Will display everything from block table
         var sql = "SELECT * " +
                   "FROM BLOCKS";
 
@@ -136,6 +140,7 @@ public class BlockDAO {
     // Finds one block record by its ID
     public Optional<BlockEntity> findById(final long id) throws SQLException {
 
+        // Will display id, blockedCause, blockedAt, unblockedCause, unblockedAt and card id based on block ID
         var sql = "SELECT id, blockedCause, blockedAt, unblockedCause, unblockedAt, card_id " +
                   "FROM BLOCKS " +
                   "WHERE id = ?";
@@ -172,6 +177,7 @@ public class BlockDAO {
     // Finds all blocks belonging to a specific card
     public List<BlockEntity> findByCardId(final long cardId) throws SQLException {
 
+        // Will display everything from block table based on card ID
         var sql = "SELECT * " +
                   "FROM BLOCKS " +
                   "WHERE card_id = ?";
@@ -208,6 +214,8 @@ public class BlockDAO {
 
     // Marks the active block as unblocked for a specific card
     public void unblockByCardId(final long cardId, final String cause, final OffsetDateTime unblockedAt) throws SQLException {
+
+        // Will update unblockedCause and unblockedAt based on card ID and unblockedAt must be null prior to update
         var sql = "UPDATE BLOCKS " +
                   "SET unblockedCause = ?, unblockedAt = ? " +
                   "WHERE card_id = ? " +
@@ -224,6 +232,8 @@ public class BlockDAO {
 
     // Checks whether a block record exists with the given ID
     public boolean exists(final long id) throws SQLException {
+
+        // Will return 1 for a matching row
         var sql = "SELECT 1 " +
                   "FROM BLOCKS " +
                   "WHERE id = ?";
@@ -239,6 +249,9 @@ public class BlockDAO {
 
     // Checks whether a card currently has an active block
     public boolean isBlocked(final long cardId) throws SQLException {
+
+        /* Will return 1 based on card ID and if unblockedAt is null, meaning that it's blocked and hasn't been
+           unblocked yet */
         var sql = "SELECT 1 " +
                   "FROM BLOCKS " +
                   "WHERE card_id = ? " +

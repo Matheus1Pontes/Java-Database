@@ -21,6 +21,7 @@ public class CardDAO {
     // Inserts a new card into the CARDS table
     public CardEntity insert(final CardEntity entity) throws SQLException {
 
+        // Will add new title, description, createdAt, and already existing board column id to card table
         var sql = "INSERT INTO CARDS (title, description, createdAt, board_column_id) " +
                   "VALUES (?, ?, ?, ?)";
 
@@ -50,6 +51,7 @@ public class CardDAO {
     // Updates an existing card
     public CardEntity update(final CardEntity entity) throws SQLException {
 
+        // Will update title, description, createdAt, and board column id based on card ID
         var sql = "UPDATE CARDS " +
                   "SET title = ?, description = ?, createdAt = ?, board_column_id = ? " +
                   "WHERE id = ?";
@@ -74,6 +76,7 @@ public class CardDAO {
     // Deletes a card using its ID
     public void delete(final long id) throws SQLException {
 
+        // Will cascade delete based on card ID
         var sql = "DELETE FROM CARDS " +
                   "WHERE id = ?";
 
@@ -86,6 +89,7 @@ public class CardDAO {
     // Retrieves every card from the database
     public List<CardEntity> findAll() throws SQLException {
 
+        // Will select everything from the card table
         var sql = "SELECT * " +
                   "FROM CARDS";
 
@@ -118,6 +122,7 @@ public class CardDAO {
     // Finds one card by its ID
     public Optional<CardEntity> findById(final long id) throws SQLException {
 
+        // Will display id, title, description, createdAt and board column id based on card ID
         var sql = "SELECT id, title, description, createdAt, board_column_id " +
                   "FROM CARDS " +
                   "WHERE id = ?";
@@ -154,6 +159,7 @@ public class CardDAO {
     // Finds all cards belonging to a specific board column
     public List<CardEntity> findByBoardColumnId(final long boardColumnId) throws SQLException {
 
+        // Will display every in card table based on board column ID
         var sql = "SELECT * " +
                   "FROM CARDS " +
                   "WHERE board_column_id = ?";
@@ -189,6 +195,7 @@ public class CardDAO {
     // Checks whether a card exists with the given ID
     public boolean exists(final long id) throws SQLException {
 
+        // Will return 1 for a matching row
         var sql = "SELECT 1 " +
                   "FROM CARDS " +
                   "WHERE id = ?";

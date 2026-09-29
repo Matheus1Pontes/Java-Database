@@ -1,39 +1,54 @@
-Sep 17, 2026 3:03:42 PM liquibase.changelog
+Sep 23, 2026 12:38:31 PM liquibase.changelog
 INFO: Reading resource: db/changelog/migrations/db.changelog-202609141429.sql
-Sep 17, 2026 3:03:42 PM liquibase.changelog
+Sep 23, 2026 12:38:31 PM liquibase.changelog
 INFO: Reading resource: db/changelog/migrations/db.changelog-202609141509.sql
-Sep 17, 2026 3:03:42 PM liquibase.changelog
+Sep 23, 2026 12:38:31 PM liquibase.changelog
 INFO: Reading resource: db/changelog/migrations/db.changelog-202609141514.sql
-Sep 17, 2026 3:03:42 PM liquibase.changelog
+Sep 23, 2026 12:38:31 PM liquibase.changelog
 INFO: Reading resource: db/changelog/migrations/db.changelog-202609141517.sql
-Sep 17, 2026 3:03:42 PM liquibase.changelog
+Sep 23, 2026 12:38:32 PM liquibase.changelog
 INFO: Reading from board.databasechangelog
-Database is up to date, no changesets to execute
-Sep 17, 2026 3:03:42 PM liquibase.changelog
-INFO: Reading from board.databasechangelog
+Sep 23, 2026 12:38:32 PM liquibase.changelog
+INFO: Change failed validation!
+Sep 23, 2026 12:38:32 PM liquibase.command
+INFO: Logging exception.
+ERROR: Exception Details
+ERROR: Exception Primary Class:  ValidationFailedException
+ERROR: Exception Primary Reason:  Validation Failed:
+     3 changesets check sum
+          db/changelog/migrations/db.changelog-202609141509.sql::202609141509::Matheus was: 9:d539de78b9076e03919c79a33a7bd7a7 but is now: 9:eb617fb2a4a892148240211d1d85ec72
+          db/changelog/migrations/db.changelog-202609141514.sql::202609141514::Matheus was: 9:8dbe99eb2ae539aa31c9dd4215c61c28 but is now: 9:aa78b631c39a1ca730f6d2632838c523
+          db/changelog/migrations/db.changelog-202609141517.sql::202609141517::Matheus was: 9:2a77b37d51265caa5896110c1246d3ac but is now: 9:f22c0b2394dd9316fea62473738244e7
 
-UPDATE SUMMARY
-Run:                          0
-Previously run:               4
-Filtered out:                 0
--------------------------------
-Total change sets:            4
-
-Sep 17, 2026 3:03:42 PM liquibase.util
-INFO: UPDATE SUMMARY
-Sep 17, 2026 3:03:42 PM liquibase.util
-INFO: Run:                          0
-Sep 17, 2026 3:03:42 PM liquibase.util
-INFO: Previously run:               4
-Sep 17, 2026 3:03:42 PM liquibase.util
-INFO: Filtered out:                 0
-Sep 17, 2026 3:03:42 PM liquibase.util
-INFO: -------------------------------
-Sep 17, 2026 3:03:42 PM liquibase.util
-INFO: Total change sets:            4
-Sep 17, 2026 3:03:42 PM liquibase.util
-INFO: Update summary generated
-Sep 17, 2026 3:03:42 PM liquibase.lockservice
-INFO: Successfully released change log lock
-Sep 17, 2026 3:03:42 PM liquibase.command
+ERROR: Exception Primary Source:  4.29.1
+Sep 23, 2026 12:38:32 PM liquibase.command
 INFO: Command execution complete
+liquibase.exception.CommandExecutionException: liquibase.exception.ValidationFailedException: Validation Failed:
+     3 changesets check sum
+          db/changelog/migrations/db.changelog-202609141509.sql::202609141509::Matheus was: 9:d539de78b9076e03919c79a33a7bd7a7 but is now: 9:eb617fb2a4a892148240211d1d85ec72
+          db/changelog/migrations/db.changelog-202609141514.sql::202609141514::Matheus was: 9:8dbe99eb2ae539aa31c9dd4215c61c28 but is now: 9:aa78b631c39a1ca730f6d2632838c523
+          db/changelog/migrations/db.changelog-202609141517.sql::202609141517::Matheus was: 9:2a77b37d51265caa5896110c1246d3ac but is now: 9:f22c0b2394dd9316fea62473738244e7
+
+	at liquibase.command.CommandScope.execute(CommandScope.java:258)
+	at liquibase.Liquibase.lambda$update$0(Liquibase.java:216)
+	at liquibase.Scope.lambda$child$0(Scope.java:191)
+	at liquibase.Scope.child(Scope.java:200)
+	at liquibase.Scope.child(Scope.java:190)
+	at liquibase.Scope.child(Scope.java:169)
+	at liquibase.Liquibase.runInScope(Liquibase.java:1290)
+	at liquibase.Liquibase.update(Liquibase.java:205)
+	at liquibase.Liquibase.update(Liquibase.java:188)
+	at liquibase.Liquibase.update(Liquibase.java:175)
+	at liquibase.Liquibase.update(Liquibase.java:155)
+	at Board.Project.Persistence.Migrations.MigrationStrategy.executeMigration(MigrationStrategy.java:44)
+	at Board.Project.Main.main(Main.java:13)
+Caused by: liquibase.exception.ValidationFailedException: Validation Failed:
+     3 changesets check sum
+          db/changelog/migrations/db.changelog-202609141509.sql::202609141509::Matheus was: 9:d539de78b9076e03919c79a33a7bd7a7 but is now: 9:eb617fb2a4a892148240211d1d85ec72
+          db/changelog/migrations/db.changelog-202609141514.sql::202609141514::Matheus was: 9:8dbe99eb2ae539aa31c9dd4215c61c28 but is now: 9:aa78b631c39a1ca730f6d2632838c523
+          db/changelog/migrations/db.changelog-202609141517.sql::202609141517::Matheus was: 9:2a77b37d51265caa5896110c1246d3ac but is now: 9:f22c0b2394dd9316fea62473738244e7
+
+	at liquibase.changelog.DatabaseChangeLog.validate(DatabaseChangeLog.java:393)
+	at liquibase.command.core.helpers.DatabaseChangelogCommandStep.run(DatabaseChangelogCommandStep.java:92)
+	at liquibase.command.CommandScope.execute(CommandScope.java:220)
+	... 12 more
