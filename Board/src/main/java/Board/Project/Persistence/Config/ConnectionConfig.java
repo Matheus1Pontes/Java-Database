@@ -13,8 +13,10 @@ public final class ConnectionConfig {
     // not good practice to connect to a root user for security reasons, in the future use SSH keys
     public static Connection getConnection() throws SQLException {
         var url = "jdbc:mysql://localhost:3306/board?allowPublicKeyRetrieval=true&useSSL=false";
-        var user = "root";
-        var password = "admin@123";
+
+        // Your user and password for the database
+        var user = "";
+        var password = "";
 
         var connection = DriverManager.getConnection(url, user, password);
         // will not commit any SQL until manually commiting in the code
